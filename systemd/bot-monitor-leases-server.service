@@ -1,0 +1,15 @@
+[Unit]
+Description=Monitor DHCPAKCS
+
+Wants=network.target
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/Production/MonitorLeases/src/server/app.py
+Restart=on-failure
+RestartSec=10
+SyslogIdentifier=monito-dhcp-leases
+User=pi
+
+[Install]
+WantedBy=multi-user.target
