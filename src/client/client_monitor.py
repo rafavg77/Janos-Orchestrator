@@ -6,8 +6,6 @@ def sendRequest(ip,mac, hostname):
     print(r.status_code)
     print(r.content)
 
-#pb = Pushbullet('o.A2Rh8j06masvex3OxEhFcTdnE9jBM9vw')
-
 process = subprocess.Popen(['tail','-f','/var/log/pihole.log'], 
                            stdout=subprocess.PIPE,
                            universal_newlines=True)
