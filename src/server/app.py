@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # import main Flask class and request object
+import logging
 from flask import Flask, request, jsonify
 import db.databaseHelper as databaseHelper
 import bot.sendToTelegram as sendToTelegram
@@ -37,15 +38,17 @@ def monitor():
         databaseHelper.insert2unique(mac,hostname)
     else: 
         notify = databaseHelper.selectUniqueHost(mac)
-        print("notify :")
-        print(notify[0])
-        if status:
-            databaseHelper.intert2History(ip,mac,hostname)
-            print("Se detectó dispositivo con más de 1 hora {} - {} - {}".format(ip,mac,hostname))
-            sendToTelegram.sendMessage("[+] Se dectecto el dispotivo {} - {} - {} ultima vez detectado {}".format(ip,mac,hostname,lastDetected))
-        else:
-            databaseHelper.intert2History(ip,mac,hostname)
-            print("El dipositivo  {} - {} - {} tiene menos del tiempo definido".format(ip,mac,hostname))
+        notifyStatus = notify[0][3]
+        if notifyStatus == 'Y':
+            if status:
+                databaseHelper.intert2History(ip,mac,hostname)
+                print("Se detectó dispositivo con más de 1 hora {} - {} - {}".format(ip,mac,hostname))
+                sendToTelegram.sendMessage("[+] Se dectecto el dispotivo {} - {} - {} ultima vez detectado {}".format(ip,mac,hostname,lastDetected))
+            else:
+                databaseHelper.intert2History(ip,mac,hostname)
+                print("El dipositivo  {} - {} - {} tiene menos del tiempo definido".format(ip,mac,hostname))
+        elif notifyStatus == 'N':
+            logging.info("Nothing to do")
 
     response_body = {
             "message": "Successfull",

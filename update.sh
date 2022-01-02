@@ -15,6 +15,10 @@ echo "[+] Installing requeriments"
 pip3 install -r requeriments.txt
 #export ORCHESTRATOR_DB=/home/pi/Production/Janos-Orchestrator/src/server/db/orchestrator.sqlite
 #export SNORT_CONFIG=/home/pi/Production/Janos-Orchestrator/src/config/config.ini
+
+#export ORCHESTRATOR_DB=/home/tota77/Developer/Janos-Orchestrator/src/server/db/orchestrator.sqlite
+#export SNORT_CONFIG=/home/tota77/Developer/Janos-Orchestrator/src/config/config.ini
+
 #python3 src/server/db/createDB.py
 deactivate
 echo "[+] Updating daemon services"
