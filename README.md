@@ -28,8 +28,8 @@ The server exposes an enpoint in the path / monitor where it receives the ip, ma
 - [ ] Integrate users, roles, authorization and authentication-
 - [ ] Run other nerdy tasks.
 
-Install
-
+## Installation
+```bash
 git clone https://github.com/rafavg77/Janos-Orchestrator.git
 cd Janos-Orchestrator.git
 virtualenv venv
@@ -48,3 +48,4 @@ sudo cp bot-orchestator-server.service /etc/systemd/system
 sudo systemctl enable bot-orchestator-server.service
 sudo systemctl start bot-orchestator-server.service
 sudo systemctl status bot-orchestator-server.service
+```
