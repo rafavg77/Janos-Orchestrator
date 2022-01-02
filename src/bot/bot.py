@@ -62,9 +62,7 @@ def callback_query(call):
         notify = 'N'
     elif call.data.split(',')[1] == 'N':
         notify = 'Y'
-    databaseHelper.updateUniqueHosts(id,notify)
-    gen_host_markup()
-    
+    databaseHelper.updateUniqueHosts(id,notify)   
     bot.answer_callback_query(call.id, "Modificando el host: " + call.data.split(',')[2])
 
 @bot.message_handler(commands=['getHosts'])
