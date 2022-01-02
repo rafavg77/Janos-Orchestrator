@@ -20,7 +20,7 @@ def selectUniqueHosts():
     conn.close()
     return unique_hosts
 
-def selectUniqueHost(id,mac):
+def selectUniqueHost(mac):
     conn = sqlite3.connect(os.environ.get('ORCHESTRATOR_DB'))
     cursor = conn.execute("SELECT * from UNIQUE_HOSTS where MAC = '{}'".format(mac))
     unique_host = cursor.fetchall()
