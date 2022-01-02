@@ -20,6 +20,14 @@ def selectUniqueHosts():
     conn.close()
     return unique_hosts
 
+def selectUniqueHost(id,mac):
+    conn = sqlite3.connect(os.environ.get('ORCHESTRATOR_DB'))
+    cursor = conn.execute("SELECT * from UNIQUE_HOSTS where MAC = '{}'".format(mac))
+    unique_host = cursor.fetchall()
+    #print(unique_hosts)
+    conn.close()
+    return unique_host
+
 def updateUniqueHosts(id,notify):
     conn = sqlite3.connect(os.environ.get('ORCHESTRATOR_DB'))
     sql_update_query = "UPDATE UNIQUE_HOSTS SET NOTIFY = ? WHERE ID =?"
