@@ -27,3 +27,24 @@ The server exposes an enpoint in the path / monitor where it receives the ip, ma
 - [ ] Perform integration with automatic consultation of electricity, water and gas bills.
 - [ ] Integrate users, roles, authorization and authentication-
 - [ ] Run other nerdy tasks.
+
+Install
+
+git clone https://github.com/rafavg77/Janos-Orchestrator.git
+cd Janos-Orchestrator.git
+virtualenv venv
+source venv/bin/activate
+pip3 install -r requeriments.txt
+cp Janos-Orchestrator/src/config/config_example.ini Janos-Orchestrator/src/config/config.ini
+#edit de config.ini file with the params
+
+cd systemd/
+sudo cp bot-orchestator-telegram.service /etc/systemd/system
+sudo systemctl enable bot-orchestator-telegram.service
+sudo systemctl start bot-orchestator-telegram.service
+sudo systemctl status bot-orchestator-telegram.service
+
+sudo cp bot-orchestator-server.service /etc/systemd/system
+sudo systemctl enable bot-orchestator-server.service
+sudo systemctl start bot-orchestator-server.service
+sudo systemctl status bot-orchestator-server.service
