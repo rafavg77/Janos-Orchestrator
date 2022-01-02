@@ -40,6 +40,7 @@ def monitor():
         notify = databaseHelper.selectUniqueHost(mac)
         notifyStatus = notify[0][3]
         if notifyStatus == 'Y':
+            logging.info("Notify :" + mac)
             if status:
                 databaseHelper.intert2History(ip,mac,hostname)
                 print("Se detectó dispositivo con más de 1 hora {} - {} - {}".format(ip,mac,hostname))
