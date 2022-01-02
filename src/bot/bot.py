@@ -51,7 +51,7 @@ def gen_host_markup():
     markup = InlineKeyboardMarkup()
     markup.row_width = len(hosts)
     for host in hosts:
-            markup.add(InlineKeyboardButton(host[2] + " - Notificar : "+  host[3], callback_data='{}'.format(host[0])+","+'{}'.format(host[3])+","+'{}'.format(host[2])))
+            markup.add(InlineKeyboardButton("💻" + host[2] + " - Notificar : "+  host[3], callback_data='{}'.format(host[0])+","+'{}'.format(host[3])+","+'{}'.format(host[2])))
     return markup
 
 @bot.callback_query_handler(func=lambda call: True)

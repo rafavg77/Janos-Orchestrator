@@ -1,6 +1,6 @@
 cd /home/pi/Production/Janos-Orchestrator/
 
-echo "[+] Stopping bot_telebot-orchestator-servergram_pokedex service"
+echo "[+] Stopping bot_telebot-orchestator-servergram service"
 sudo service bot-orchestator-server stop
 echo "[+] waiting ..."
 sleep 10
