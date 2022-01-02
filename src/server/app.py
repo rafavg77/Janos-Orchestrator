@@ -37,7 +37,8 @@ def monitor():
         databaseHelper.insert2unique(mac,hostname)
     else: 
         notify = databaseHelper.selectUniqueHost(mac)
-        print("notify :" + notify[0])
+        print("notify :")
+        print(notify[0])
         if status:
             databaseHelper.intert2History(ip,mac,hostname)
             print("Se detectó dispositivo con más de 1 hora {} - {} - {}".format(ip,mac,hostname))
