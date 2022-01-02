@@ -7,13 +7,13 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 def selectHistory():
-    conn = sqlite3.connect('/home/pi/Production/MonitorLeases/src/server/db/hosts.db')
+    conn = sqlite3.connect('/home/pi/Production/Janos-Orchestrator/src/server/db/hosts.db')
     cursor = conn.execute("SELECT * from HOSTS")
     print(cursor.fetchall())
     conn.close()
 
 def intert2History(ip,mac,hostname):
-    conn = sqlite3.connect('/home/pi/Production/MonitorLeases/src/server/db/hosts.db')
+    conn = sqlite3.connect('/home/pi/Production/Janos-Orchestrator/src/server/db/hosts.db')
     first_time = datetime.datetime.now()
     try:
         conn.execute("INSERT INTO HOSTS (IP,MAC,HOSTNAME,DATE) VALUES (?, ?, ?,?)",('{}'.format(ip), '{}'.format(mac), '{}'.format(hostname),first_time))
@@ -26,7 +26,7 @@ def intert2History(ip,mac,hostname):
 def getLastDetected(mac):
     later_time = datetime.datetime.now()
 
-    conn = sqlite3.connect('/home/pi/Production/MonitorLeases/src/server/db/hosts.db')
+    conn = sqlite3.connect('/home/pi/Production/Janos-Orchestrator/src/server/db/hosts.db')
 
     cursor = conn.execute("SELECT * FROM HOSTS WHERE MAC = '{}' ORDER BY DATE DESC LIMIT 1;".format(mac))
     #print(cursor.fetchall())

@@ -5,10 +5,10 @@ Wants=network.target
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 /home/pi/Production/MonitorLeases/src/server/app.py
+ExecStart=/home/pi/Production/Janos-Orchestrator/venv/bin/python3 /home/pi/Production/Janos-Orchestrator/src/server/app.py
 Restart=on-failure
 RestartSec=10
-SyslogIdentifier=monito-dhcp-leases
+SyslogIdentifier=monitoR-dhcp-leases
 User=pi
 
 [Install]

@@ -4,7 +4,7 @@ import telebot
 from configparser import ConfigParser
 
 thisfolder = os.path.dirname(os.path.abspath(__file__))
-initfile = os.path.join(thisfolder, '/home/pi/Production/MonitorLeases/src/config/config.ini')
+initfile = os.path.join(thisfolder, os.environ.get('SNORT_CONFIG'))
 config = ConfigParser()
 config.read(initfile)
 
