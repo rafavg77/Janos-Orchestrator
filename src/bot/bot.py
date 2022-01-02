@@ -107,4 +107,5 @@ def all_messages(message):
     elif message.text == getHosts:
         get_hosts(message)
 
+bot.send_message(BOT_CHAT, "🐧Bot is Running 🐧")
 bot.infinity_polling()
