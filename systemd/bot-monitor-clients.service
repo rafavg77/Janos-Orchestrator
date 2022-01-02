@@ -8,7 +8,7 @@ After=network.target
 ExecStart=/bin/bash /home/pi/Scripts/logMonitor/monitor.sh
 Restart=on-failure
 RestartSec=10
-SyslogIdentifier=bot-monitor-clients
+SyslogIdentifier=Janos-Orchestrator-monitor-clients
 User=pi
 
 [Install]

@@ -8,7 +8,7 @@ Environment="SNORT_CONFIG=/home/pi/Production/Janos-Orchestrator/src/config/conf
 ExecStart=/home/pi/Production/Janos-Orchestrator/venv/bin/python3 /home/pi/Production/Janos-Orchestrator/src/server/bot/bot.py
 Restart=on-failure
 RestartSec=10
-SyslogIdentifier=bot-snort-telegram
+SyslogIdentifier=Janos-Orchestrator-telegram-bot
 User=pi
 
 [Install]

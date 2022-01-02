@@ -8,7 +8,7 @@ After=network.target
 ExecStart=/home/pi/Production/Janos-Orchestrator/venv/bin/python3 /home/pi/Production/Janos-Orchestrator/src/server/app.py
 Restart=on-failure
 RestartSec=10
-SyslogIdentifier=monitoR-dhcp-leases
+SyslogIdentifier=Janos-Orchestrator-server
 User=pi
 
 [Install]
