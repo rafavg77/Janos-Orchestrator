@@ -32,8 +32,9 @@ def monitor():
     hostname = request_data['hostname']
     lastDetected, minutes, status, isNew = databaseHelper.getLastDetected(mac)
     if isNew:
-        sendToTelegram.sendMessage("[+] Se dectecto un nuevo dispotivo {} - {} - {}".format(ip,mac,hostname))
+        sendToTelegram.sendMessage("[+] 🔥 Se dectecto un nuevo dispotivo {} - {} - {}".format(ip,mac,hostname))
         databaseHelper.intert2History(ip,mac,hostname)
+        databaseHelper.insert2unique(mac,hostname)
     else: 
         if status:
             databaseHelper.intert2History(ip,mac,hostname)

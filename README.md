@@ -22,11 +22,16 @@ The server exposes an enpoint in the path / monitor where it receives the ip, ma
 - [x] Read logs for DHCPACK events.
     - [x] Identify if it is a new device.
     - [x] If it is a previously viewed device, identify the last date the device was viewed.
-- [ ] Document the installation steps.
+- [x] Document the installation steps.
 - [ ] Perform integration with suricata IDS.
 - [ ] Perform integration with automatic consultation of electricity, water and gas bills.
 - [ ] Integrate users, roles, authorization and authentication-
 - [ ] Run other nerdy tasks.
+- [ ] Add table of unique hosts.
+    - [ ] For each host add a colum with Notify Status Yes or No.
+    - [ ] Add the funcionality when detect a new host add the host to unique hosta table with Notify status YES.
+    - [ ] Add the funcionality to telgram bot to get hosts from unique host table
+    - [ ] Add the funcionality to telegram update Notify Status for each hosts.
 
 ## Installation
 ```bash
@@ -49,3 +54,6 @@ sudo systemctl enable bot-orchestator-server.service
 sudo systemctl start bot-orchestator-server.service
 sudo systemctl status bot-orchestator-server.service
 ```
+
+export ORCHESTRATOR_DB=/home/tota77/Developer/Janos-Orchestrator/src/server/db/orchestrator.sqlite
+export SNORT_CONFIG='/home/tota77/Developer/Janos-Orchestrator/src/config/config.ini'

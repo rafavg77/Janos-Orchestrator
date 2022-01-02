@@ -1,8 +1,10 @@
 import os
 from telebot import types, telebot
+from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 import pihole as ph
 import ipinfo
 from configparser import ConfigParser
+from db import databaseHelper
 
 thisfolder = os.path.dirname(os.path.abspath(__file__))
 initfile = os.path.join(thisfolder, os.environ.get('SNORT_CONFIG'))
@@ -24,20 +26,46 @@ pihole.authenticate(PIHOLE_AUTH)
 statusBlock = '🔥 Status de bloqueo PiHole 🔥'
 changeStatus = '🎮 Cambiar Status de bloqueo PiHole 🎮'
 checkIP = '🕹️ Consultar Direccion IP pública 🕹️'
+getHosts = '💻 Consultar todos los Hosts 💻'
 
 def keyboard():
     markup = types.ReplyKeyboardMarkup(row_width=5)
     itembtna = types.KeyboardButton(statusBlock)
     itembtnv = types.KeyboardButton(changeStatus)
     itembtnc = types.KeyboardButton(checkIP)
+    itembtnd = types.KeyboardButton(getHosts)
     markup.row(itembtna)
     markup.row(itembtnv)
     markup.row(itembtnc)
+    markup.row(itembtnd)
     return markup
+
+def gen_host_markup():
+    hosts = databaseHelper.selectUniqueHosts()
+    markup = InlineKeyboardMarkup()
+    markup.row_width = len(hosts)
+    for host in hosts:
+            markup.add(InlineKeyboardButton(host[2] + " - Notificar : "+  host[3], callback_data='{}'.format(host[0])+","+'{}'.format(host[3])+","+'{}'.format(host[2])))
+    return markup
+
+@bot.callback_query_handler(func=lambda call: True)
+def callback_query(call):
+    print(call.data)
+    id = call.data.split(',')[0]
+    if call.data.split(',')[1] == 'Y':
+        notify = 'N'
+    elif call.data.split(',')[1] == 'N':
+        notify = 'Y'
+    databaseHelper.updateUniqueHosts(id,notify)
+    bot.answer_callback_query(call.id, "Modificando el host: " + call.data.split(',')[2])
+
+@bot.message_handler(commands=['getHosts'])
+def get_hosts(message):
+    bot.send_message(message.chat.id, "Selecciona un Host: ", reply_markup=gen_host_markup())
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-	bot.send_message(message.chat.id, "You can use the keyboard",reply_markup=keyboard())
+	bot.send_message(message.chat.id, "Puedes utilizar el teclado",reply_markup=keyboard())
 
 @bot.message_handler(commands=['blockStatus'])
 def send_block_status(message):
@@ -70,5 +98,7 @@ def all_messages(message):
         send_change_block_status(message)
     elif message.text == checkIP:
         get_ip_info(message)
+    elif message.text == getHosts:
+        get_hosts(message)
 
 bot.infinity_polling()

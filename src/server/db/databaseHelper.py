@@ -7,13 +7,29 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 def selectHistory():
-    conn = sqlite3.connect('/home/pi/Production/Janos-Orchestrator/src/server/db/hosts.db')
+    conn = sqlite3.connect(os.environ.get('ORCHESTRATOR_DB'))
     cursor = conn.execute("SELECT * from HOSTS")
     print(cursor.fetchall())
     conn.close()
 
+def selectUniqueHosts():
+    conn = sqlite3.connect(os.environ.get('ORCHESTRATOR_DB'))
+    cursor = conn.execute("SELECT * from UNIQUE_HOSTS")
+    unique_hosts = cursor.fetchall()
+    #print(unique_hosts)
+    conn.close()
+    return unique_hosts
+
+def updateUniqueHosts(id,notify):
+    conn = sqlite3.connect(os.environ.get('ORCHESTRATOR_DB'))
+    sql_update_query = "UPDATE UNIQUE_HOSTS SET NOTIFY = ? WHERE ID =?"
+    data = (notify,id)
+    conn.execute(sql_update_query, data)
+    conn.commit()
+    conn.close()
+
 def intert2History(ip,mac,hostname):
-    conn = sqlite3.connect('/home/pi/Production/Janos-Orchestrator/src/server/db/hosts.db')
+    conn = sqlite3.connect(os.environ.get('ORCHESTRATOR_DB'))
     first_time = datetime.datetime.now()
     try:
         conn.execute("INSERT INTO HOSTS (IP,MAC,HOSTNAME,DATE) VALUES (?, ?, ?,?)",('{}'.format(ip), '{}'.format(mac), '{}'.format(hostname),first_time))
@@ -23,10 +39,23 @@ def intert2History(ip,mac,hostname):
     finally:
         conn.close()
 
+def insert2unique(mac,hostname):
+    conn = sqlite3.connect(os.environ.get('ORCHESTRATOR_DB'))
+    now = datetime.datetime.now()
+    try:
+        logging.info("unique " + hostname)
+        conn.execute("INSERT INTO UNIQUE_HOSTS (MAC,HOSTNAME,NOTIFY,DATE) VALUES (?, ?, ?, ?)",('{}'.format(mac),'{}'.format(hostname), 'Y',now))
+        conn.commit()
+    except:  
+        conn.rollback()  
+    finally:
+        conn.close()
+
+
 def getLastDetected(mac):
     later_time = datetime.datetime.now()
 
-    conn = sqlite3.connect('/home/pi/Production/Janos-Orchestrator/src/server/db/hosts.db')
+    conn = sqlite3.connect(os.environ.get('ORCHESTRATOR_DB'))
 
     cursor = conn.execute("SELECT * FROM HOSTS WHERE MAC = '{}' ORDER BY DATE DESC LIMIT 1;".format(mac))
     #print(cursor.fetchall())
