@@ -1,10 +1,16 @@
-import os
+import os,sys
 from telebot import types, telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 import pihole as ph
 import ipinfo
 from configparser import ConfigParser
-from db import databaseHelper
+
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+
+from server.db import databaseHelper
+
 
 thisfolder = os.path.dirname(os.path.abspath(__file__))
 initfile = os.path.join(thisfolder, os.environ.get('SNORT_CONFIG'))

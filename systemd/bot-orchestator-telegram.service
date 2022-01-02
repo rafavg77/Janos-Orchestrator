@@ -6,7 +6,7 @@ After=network.target
 [Service]
 Environment="SNORT_CONFIG=/home/pi/Production/Janos-Orchestrator/src/config/config.ini"
 Environment="ORCHESTRATOR_DB=/home/pi/Production/Janos-Orchestrator/src/server/db/orchestrator.sqlite"
-ExecStart=/home/pi/Production/Janos-Orchestrator/venv/bin/python3 /home/pi/Production/Janos-Orchestrator/src/server/bot/bot.py
+ExecStart=/home/pi/Production/Janos-Orchestrator/venv/bin/python3 /home/pi/Production/Janos-Orchestrator/src/bot/bot.py
 Restart=on-failure
 RestartSec=10
 SyslogIdentifier=Janos-Orchestrator-telegram-bot
